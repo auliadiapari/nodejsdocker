@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-indexjs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp-indexjs
+  template:
+    metadata:
+      labels:
+        app: myapp-indexjs
+    spec:
+      containers:
+      - name: myapp-indexjs
+        image: auliardd/server:1.0.1
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+          - name: SERVER_OWNER_NAME
+            value: aul
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-indexjs
+spec:
+  type: NodePort
+  selector:
+    app: myapp-indexjs
+  ports:
+  - port: 80
+    targetPort: 8080
