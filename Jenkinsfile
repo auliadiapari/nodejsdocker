@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage('Echo 1') {
+        stage('Echo Awl') {
             steps {
                 script {
                     echo '1'
